@@ -1,4 +1,4 @@
-# Machine Translation from AWS Polly
+# Machine Translation from AWS Translate
 
 **aws.translate** is a package for [AWS Translate](https://aws.amazon.com/translate/), an Amazon Web Services machine translation web service.
 
