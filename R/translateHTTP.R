@@ -1,8 +1,9 @@
 #' @title Execute AWS Translate API Request
 #' @description This is the workhorse function to execute calls to the Translate API.
+#' @param action A character string specifying the API action to take
 #' @param query An optional named list containing query string parameters and their character values.
 #' @param body A request body
-#' @param version A character string specifying the API version.
+#' @param verbose A logical indicating whether to be verbose. Default is given by \code{options("verbose")}.
 #' @param region A character string containing an AWS region. If missing, the default \dQuote{us-east-1} is used.
 #' @param key A character string containing an AWS Access Key ID. The default is pulled from environment variable \dQuote{AWS_ACCESS_KEY_ID}.
 #' @param secret A character string containing an AWS Secret Access Key. The default is pulled from environment variable \dQuote{AWS_SECRET_ACCESS_KEY}.
@@ -13,11 +14,14 @@
 #' @author Thomas J. Leeper
 #' @import httr
 #' @importFrom jsonlite fromJSON toJSON
+#' @importFrom xml2 read_xml as_list
 #' @importFrom aws.signature signature_v4_auth
 #' @export
 translateHTTP <- 
-function(query = list(),
+function(action,
+         query = list(),
          body = NULL,
+         verbose = getOption("verbose", FALSE),
          region = NULL, 
          key = NULL, 
          secret = NULL, 
@@ -33,16 +37,21 @@ function(query = list(),
            region = region,
            service = "translate",
            verb = "POST",
-           action = "",
+           action = "/",
            query_args = query,
            canonical_headers = list(host = paste0("translate.",region,".amazonaws.com"),
-                                    `x-amz-date` = d_timestamp),
-           request_body = if (is.null(body)) "" else toJSON(body, auto_unbox = TRUE),
+                                    "X-Amz-Date" = d_timestamp,
+                    "X-Amz-Target" = paste0("AWSShineFrontendService_20170701.", action),
+                    "Content-Type" = "application/x-amz-json-1.1"),
+           request_body = if (is.null(body)) "" else jsonlite::toJSON(body, auto_unbox = TRUE),
            key = key, 
            secret = secret,
-           session_token = session_token)
-    headers <- list()
-    headers[["x-amz-date"]] <- d_timestamp
+           session_token = session_token,
+           verbose = verbose)
+    headers <- list(host = paste0("translate.",region,".amazonaws.com"),
+                    "X-Amz-Date" = d_timestamp,
+                    "X-Amz-Target" = paste0("AWSShineFrontendService_20170701.", action),
+                    "Content-Type" = "application/x-amz-json-1.1")
     headers[["x-amz-content-sha256"]] <- Sig$BodyHash
     if (!is.null(session_token) && session_token != "") {
         headers[["x-amz-security-token"]] <- session_token
@@ -55,17 +64,19 @@ function(query = list(),
     } else {
         r <- POST(url, H, body = body, encode = "json", ...)
     }
-    
     if (http_error(r)) {
-        x <- fromJSON(content(r, "text", encoding = "UTF-8"))
         warn_for_status(r)
+        x <- try(jsonlite::fromJSON(content(r, "text", encoding = "UTF-8")))
+        if (inherits(x, "try-error")) {
+            x <- try(xml2::as_list(xml2::read_xml(content(r, "text", encoding = "UTF-8"))))
+        }
         h <- headers(r)
         out <- structure(x, headers = h, class = "aws_error")
         attr(out, "request_canonical") <- Sig$CanonicalRequest
         attr(out, "request_string_to_sign") <- Sig$StringToSign
         attr(out, "request_signature") <- Sig$SignatureHeader
     } else {
-        out <- try(fromJSON(content(r, "text", encoding = "UTF-8")), silent = TRUE)
+        out <- try(jsonlite::fromJSON(content(r, "text", encoding = "UTF-8")), silent = TRUE)
         if (inherits(out, "try-error")) {
             out <- structure(content(r, "text", encoding = "UTF-8"), "unknown")
         }

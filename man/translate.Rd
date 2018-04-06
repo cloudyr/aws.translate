@@ -23,6 +23,6 @@ Translate text between languages
 }
 \examples{
 \dontrun{
-translate("hello world!", to = "fr")
+  translate("hello world!", to = "fr")
 }
 }

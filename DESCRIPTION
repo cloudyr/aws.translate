@@ -2,7 +2,7 @@ Package: aws.translate
 Type: Package
 Title: Client for AWS Translate
 Version: 0.1.1
-Date: 2018-03-07
+Date: 2018-04-06
 Authors@R: c(person("Thomas J.", "Leeper",
                     role = c("aut", "cre"), 
                     email = "thosjleeper@gmail.com",
@@ -15,5 +15,6 @@ BugReports: https://github.com/cloudyr/aws.translate/issues
 Imports:
     httr,
     jsonlite,
+    xml2,
     aws.signature (>= 0.3.4)
 RoxygenNote: 6.0.1

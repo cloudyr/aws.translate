@@ -4,13 +4,18 @@
 \alias{translateHTTP}
 \title{Execute AWS Translate API Request}
 \usage{
-translateHTTP(query = list(), body = NULL, region = NULL, key = NULL,
+translateHTTP(action, query = list(), body = NULL,
+  verbose = getOption("verbose", FALSE), region = NULL, key = NULL,
   secret = NULL, session_token = NULL, ...)
 }
 \arguments{
+\item{action}{A character string specifying the API action to take}
+
 \item{query}{An optional named list containing query string parameters and their character values.}
 
 \item{body}{A request body}
+
+\item{verbose}{A logical indicating whether to be verbose. Default is given by \code{options("verbose")}.}
 
 \item{region}{A character string containing an AWS region. If missing, the default \dQuote{us-east-1} is used.}
 
@@ -21,8 +26,6 @@ translateHTTP(query = list(), body = NULL, region = NULL, key = NULL,
 \item{session_token}{Optionally, a character string containing an AWS temporary Session Token. If missing, defaults to value stored in environment variable \dQuote{AWS_SESSION_TOKEN}.}
 
 \item{...}{Additional arguments passed to \code{\link[httr]{GET}}.}
-
-\item{version}{A character string specifying the API version.}
 }
 \value{
 If successful, a named list. Otherwise, a data structure of class \dQuote{aws-error} containing any error message(s) from AWS and information about the request attempt.

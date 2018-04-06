@@ -36,14 +36,33 @@ Temporary session tokens are stored in environment variable `AWS_SESSION_TOKEN` 
 
 The basic use of the package is super simple and revolves around the `translate()` function, which takes a character string as input:
 
-```{r}
+
+```r
 library("aws.translate")
 
 # translate some text from English
 translate("Hello world!", from = "en", to = "fr")
+```
 
+```
+## [1] "Bonjour le monde !"
+## attr(,"SourceLanguageCode")
+## [1] "en"
+## attr(,"TargetLanguageCode")
+## [1] "fr"
+```
+
+```r
 # translate some text to English
 translate("Hola mundo!", from = "auto", to = "en")
+```
+
+```
+## [1] "Hello world!"
+## attr(,"SourceLanguageCode")
+## [1] "es"
+## attr(,"TargetLanguageCode")
+## [1] "en"
 ```
 
 ## Installation

@@ -8,7 +8,7 @@
 #' @return A character string containing the translation.
 #' @examples
 #' \dontrun{
-#' translate("hello world!", to = "fr")
+#'   translate("hello world!", to = "fr")
 #' }
 #' @export
 translate <- 
@@ -20,6 +20,8 @@ function(text,
     bod <- list(SourceLanguageCode = from,
                 TargetLanguageCode = to,
                 Text = text)
-    out <- translateHTTP(query = list(Action = "TranslateText"), verb = "POST", body = bod, ...)$TranslatedText
-    return(out)
+    out <- translateHTTP(action = "TranslateText", body = bod, ...)
+    return(structure(out$TranslatedText,
+                     SourceLanguageCode = out$SourceLanguageCode,
+                     TargetLanguageCode = out$TargetLanguageCode))
 }
