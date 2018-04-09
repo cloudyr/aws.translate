@@ -14,7 +14,6 @@
 #' @author Thomas J. Leeper
 #' @import httr
 #' @importFrom jsonlite fromJSON toJSON
-#' @importFrom xml2 read_xml as_list
 #' @importFrom aws.signature signature_v4_auth
 #' @export
 translateHTTP <- 
@@ -67,9 +66,6 @@ function(action,
     if (http_error(r)) {
         warn_for_status(r)
         x <- try(jsonlite::fromJSON(content(r, "text", encoding = "UTF-8")))
-        if (inherits(x, "try-error")) {
-            x <- try(xml2::as_list(xml2::read_xml(content(r, "text", encoding = "UTF-8"))))
-        }
         h <- headers(r)
         out <- structure(x, headers = h, class = "aws_error")
         attr(out, "request_canonical") <- Sig$CanonicalRequest
