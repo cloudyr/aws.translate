@@ -2,13 +2,13 @@ Package: aws.translate
 Type: Package
 Title: Client for AWS Translate
 Version: 0.1.1
-Date: 2018-04-06
+Date: 2018-04-09
 Authors@R: c(person("Thomas J.", "Leeper",
                     role = c("aut", "cre"), 
                     email = "thosjleeper@gmail.com",
                     comment = c(ORCID = "0000-0003-4097-6326"))
              )
-Description: A client for AWS Translate <https://aws.amazon.com/documentation/translate>, a machine translation service.
+Description: A client for 'AWS Translate' <https://aws.amazon.com/documentation/translate>, a machine translation service that will convert a text input in one language into a text output in another language.
 License: GPL (>= 2)
 URL: https://github.com/cloudyr/aws.translate
 BugReports: https://github.com/cloudyr/aws.translate/issues
