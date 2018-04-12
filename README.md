@@ -41,15 +41,15 @@ The basic use of the package is super simple and revolves around the `translate(
 library("aws.translate")
 
 # translate some text from English
-translate("Hello world!", from = "en", to = "fr")
+translate("Bonjour le monde!", from = "fr", to = "en")
 ```
 
 ```
-## [1] "Bonjour le monde !"
+## [1] "Hello, world!"
 ## attr(,"SourceLanguageCode")
-## [1] "en"
-## attr(,"TargetLanguageCode")
 ## [1] "fr"
+## attr(,"TargetLanguageCode")
+## [1] "en"
 ```
 
 ```r
