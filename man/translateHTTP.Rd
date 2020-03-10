@@ -4,10 +4,18 @@
 \alias{translateHTTP}
 \title{Execute AWS Translate API Request}
 \usage{
-translateHTTP(action, query = list(), headers = list(), body = NULL,
+translateHTTP(
+  action,
+  query = list(),
+  headers = list(),
+  body = NULL,
   verbose = getOption("verbose", FALSE),
-  region = Sys.getenv("AWS_DEFAULT_REGION", "us-east-1"), key = NULL,
-  secret = NULL, session_token = NULL, ...)
+  region = Sys.getenv("AWS_DEFAULT_REGION", "us-east-1"),
+  key = NULL,
+  secret = NULL,
+  session_token = NULL,
+  ...
+)
 }
 \arguments{
 \item{action}{A character string specifying the API action to take}
