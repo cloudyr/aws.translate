@@ -8,11 +8,11 @@ matrix:
     sudo: required
     env: DRAT_DEPLOY=true
   - os: osx
-    osx_image: xcode9.2
+    osx_image: xcode11.3
   - os: osx
-    osx_image: xcode7.3
-    r_build_args: "--no-build-vignettes"
-    r_check_args: "--ignore-vignettes --no-examples"
+    osx_image: xcode10.3
+  - os: osx
+    osx_image: xcode9.4
 r_packages:
 - covr
 - drat
@@ -25,4 +25,5 @@ after_success:
 - R -q -e "travisci::restart_last_build('cloudyr/awspack')"
 env:
   global:
-    secure: 1anwddU+Jo9CVl6HHg0T20fwN6jokZgnIxCA3fhorxWvDe6umWo42mH0QkYa9XDtu3bdGOYJEKEX0tfa3gOHfPtzhPWmzzO3pYUW6iSptC+QVT+l6bCqEkss9SXW95PaVeA95KZ7aTugQkoQUaUdgccJEqA6RuIaaaFg3PFOVl6aYEXVWZv/JLLR3YhAUowQr81BxIogmDIS0QpCeW+Mg2CyNRPbNmefE9YQ1JWb4v2/O5h7fO2K3FycETWvfBSDVTe2CQHireSc2yl47C9F30HQyB5Ba+FGT5Db3UIcu9PDvktN5PEaaBDSSMbRHjzXZjoPd27/uATBA13dIrfNJ5FnWu41StIY9ityErHKzJM4SPjn8K1dh7qgQ0zwIM73bFxietLN6/Apd2xSG51j084oNwYcL6W3Dpx/7BppWD4BUwEhI3p+eNtPBZhn2MKrnbRuto2kdiUbac8B/S6SKlvsxOIg+kEJENGjZjlmPnNJtqoYUMW5hLNwmRlA1T4mf9pUKurBC6GD2J5O/V0eiPXsZF8VRpG9zQr3cM/nkuIlYnUCg24YNnEBIcXW7LxyQpVVLBXTP3b6QM1xBZiJuEtIwA9H36lU17wdXrUyaZzAMGdN9yKrbMc71p2VCA8TfdRvLc5XgVuu2vf8+J1OhWTWCpiWvrJxH9lo9G9gX4o=
+    - secure: 1anwddU+Jo9CVl6HHg0T20fwN6jokZgnIxCA3fhorxWvDe6umWo42mH0QkYa9XDtu3bdGOYJEKEX0tfa3gOHfPtzhPWmzzO3pYUW6iSptC+QVT+l6bCqEkss9SXW95PaVeA95KZ7aTugQkoQUaUdgccJEqA6RuIaaaFg3PFOVl6aYEXVWZv/JLLR3YhAUowQr81BxIogmDIS0QpCeW+Mg2CyNRPbNmefE9YQ1JWb4v2/O5h7fO2K3FycETWvfBSDVTe2CQHireSc2yl47C9F30HQyB5Ba+FGT5Db3UIcu9PDvktN5PEaaBDSSMbRHjzXZjoPd27/uATBA13dIrfNJ5FnWu41StIY9ityErHKzJM4SPjn8K1dh7qgQ0zwIM73bFxietLN6/Apd2xSG51j084oNwYcL6W3Dpx/7BppWD4BUwEhI3p+eNtPBZhn2MKrnbRuto2kdiUbac8B/S6SKlvsxOIg+kEJENGjZjlmPnNJtqoYUMW5hLNwmRlA1T4mf9pUKurBC6GD2J5O/V0eiPXsZF8VRpG9zQr3cM/nkuIlYnUCg24YNnEBIcXW7LxyQpVVLBXTP3b6QM1xBZiJuEtIwA9H36lU17wdXrUyaZzAMGdN9yKrbMc71p2VCA8TfdRvLc5XgVuu2vf8+J1OhWTWCpiWvrJxH9lo9G9gX4o=
+    - _R_CHECK_SYSTEM_CLOCK_: false
